@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/stephenz22/suangongshi/internal/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -39,4 +40,12 @@ func InitDB(dsn string) *gorm.DB {
 	log.Println("✅ PostgreSQL 数据库连接初始化成功 [用户: sg_admin]")
 
 	return db
+}
+
+func MigrateDB(db *gorm.DB) error {
+	// 这里可以调用 db.AutoMigrate(&User{}, &Project{}, &WorkSession{}) 来自动迁移数据库结构
+	// 例如:
+	// err := db.AutoMigrate(&User{}, &Project{}, &WorkSession{})
+	return db.AutoMigrate(&model.User{})
+
 }

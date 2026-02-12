@@ -22,6 +22,12 @@ func main() {
 	// init database
 
 	db := database.InitDB(config.GlobalConfig.Database.DSN)
+	err = database.MigrateDB(db)
+	if err != nil {
+		fmt.Printf("Failed to migrate database: %s\n", err)
+		return
+	}
+
 	gin_engine := api.RegisterRouters(db)
 	srv := server.New(db, gin_engine)
 
