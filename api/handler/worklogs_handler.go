@@ -67,5 +67,12 @@ func (h *WorklogsHandler) GetWorklogsByUserID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"data": worklogs})
+	c.JSON(200, gin.H{
+		"data": gin.H{
+			"worklogs": worklogs,
+			"count":    len(*worklogs),
+		},
+		"code":    200,
+		"message": "Worklogs retrieved successfully",
+	})
 }
