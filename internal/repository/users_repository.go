@@ -22,3 +22,9 @@ func (r *UserRepository) GetAllUsers() (*[]model.User, error) {
 	err := r.db.Find(&users).Error
 	return &users, err
 }
+
+func (r *UserRepository) GetUserByID(userID uint) (*model.User, error) {
+	var user model.User
+	err := r.db.First(&user, userID).Error
+	return &user, err
+}

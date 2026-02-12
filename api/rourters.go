@@ -33,9 +33,17 @@ func RegisterRouters(db *gorm.DB) *gin.Engine {
 		userRoutes := v1.Group("/users")
 		{
 			userRepo := repository.NewUserRepository(db)
-			user_handler := handler.NewUsersHandler(userRepo)
+			user_handler := handler.NewUsersHandler(userRepo, repository.NewWorklogsRepository(db))
+			userRoutes.POST("/create", user_handler.CreateUser) // 创建用户
 			userRoutes.GET("/profile", user_handler.GetUserProfile)
-			userRoutes.POST("/update", user_handler.UpdateUserRate) // 更新默认工价
+			userRoutes.GET("/month_work_count/:user_id", user_handler.GetMonthWorkCountByUserID)
+		}
+
+		workHandler := handler.NewWorklogsHandler(repository.NewWorklogsRepository(db))
+		workRoutes := v1.Group("/worklogs")
+		{
+			workRoutes.POST("/create", workHandler.CreateWorklog)
+			workRoutes.GET("/list/:user_id", workHandler.GetWorklogsByUserID)
 		}
 	}
 
