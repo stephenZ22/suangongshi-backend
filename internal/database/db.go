@@ -46,6 +46,6 @@ func MigrateDB(db *gorm.DB) error {
 	// 这里可以调用 db.AutoMigrate(&User{}, &Project{}, &WorkSession{}) 来自动迁移数据库结构
 	// 例如:
 	// err := db.AutoMigrate(&User{}, &Project{}, &WorkSession{})
-	return db.AutoMigrate(&model.User{})
+	return db.AutoMigrate(&model.User{}, &model.Team{}, &model.TeamAndUser{}, &model.WorkLog{})
 
 }
