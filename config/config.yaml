@@ -4,7 +4,7 @@ server:
 
 database:
   driver: "postgres" # or "mysql"
-  dsn: "root:password@tcp(127.0.0.1:33306)/suangongshi?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "host=localhost user=sg_admin password=sg_pass_123 dbname=suangongshi port=5432 sslmode=disable TimeZone=Asia/Shanghai"
 
 auth:
   jwt_secret: "your-secret-key" # 用于工人登录态

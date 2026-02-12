@@ -1,15 +1,18 @@
 package handler
 
 import (
-	"gorm.io/gorm"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/stephenz22/suangongshi/internal/repository"
 )
 
 type UsersHandler struct {
-	DB *gorm.DB
+	repo *repository.UserRepository
 }
 
-func NewUsersHandler(db *gorm.DB) *UsersHandler {
-	return &UsersHandler{DB: db}
+func NewUsersHandler(repo *repository.UserRepository) *UsersHandler {
+	return &UsersHandler{repo: repo}
 }
 
 func (h *UsersHandler) RegisterRoutes() {
@@ -17,12 +20,16 @@ func (h *UsersHandler) RegisterRoutes() {
 
 }
 
-func (h *UsersHandler) CreateUser() {
+func (h *UsersHandler) GetUserProfile(c *gin.Context) {
 	// User creation logic goes here
+
+	c.JSON(http.StatusOK, gin.H{"message": "User profile retrieved successfully"})
 }
 
-func (h *UsersHandler) GetUser() {
+func (h *UsersHandler) UpdateUserRate(c *gin.Context) {
 	// User retrieval logic goes here
+
+	c.JSON(http.StatusOK, gin.H{"message": "User rate updated successfully"})
 }
 
 func (h *UsersHandler) UpdateUser() {
